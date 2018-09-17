@@ -66,17 +66,17 @@ public class AppRun {
 //        }
 
 
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
-//
-//        String inputLine;
-//        StringBuilder response = new StringBuilder();
-//
-//        while ((inputLine = reader.readLine()) != null) {
-//            response.append(inputLine);
-//        }
-//        reader.close();
-//
-//        System.out.println(response.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
+
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+
+        while ((inputLine = reader.readLine()) != null) {
+            response.append(inputLine);
+        }
+        reader.close();
+
+        System.out.println(response.toString());
         httpClient.close();
     }
 }

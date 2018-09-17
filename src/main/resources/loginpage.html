@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div id="quick_login" class="quick_login">
+    <form method="POST" name="login" id="quick_login_form" action="https://login.vk.com/?act=login">
+        <input type="hidden" name="act" value="login"/>
+        <input type="hidden" name="role" value="al_frame"/>
+        <input type="hidden" name="expire" id="quick_expire_input" value=""/>
+        <input type="hidden" name="recaptcha" id="quick_recaptcha" value=""/>
+        <input type="hidden" name="captcha_sid" id="quick_captcha_sid" value=""/>
+        <input type="hidden" name="captcha_key" id="quick_captcha_key" value=""/>
+        <input type="hidden" name="_origin" value="https://vk.com"/>
+        <input type="hidden" name="ip_h" value="f1b6e3eda39f19ebd7"/>
+        <input type="hidden" name="lg_h" value="4f1c66b185a7ed3c44"/>
+        <div class="label">Телефон или email</div>
+        <div class="labeled"><input type="text" name="email" class="dark" id="quick_email"/></div>
+        <div class="label">Пароль</div>
+        <div class="labeled"><input type="password" name="pass" class="dark" id="quick_pass"
+                                    onkeyup="toggle('quick_expire', !!this.value);toggle('quick_forgot', !this.value)"/>
+        </div>
+        <input type="submit" class="submit"/>
+    </form>
+    <button class="quick_login_button flat_button button_wide" id="quick_login_button">Войти</button>
+    <button class="quick_reg_button flat_button button_wide" id="quick_reg_button" style="display: none"
+            onclick="top.showBox('join.php', {act: 'box', from: nav.strLoc})">Регистрация
+    </button>
+    <div class="clear forgot">
+        <div class="checkbox" id="quick_expire"
+             onclick="checkbox(this);ge('quick_expire_input').value=isChecked(this)?1:'';">Чужой компьютер
+        </div>
+        <a id="quick_forgot" class="quick_forgot" href="/restore" target="_top">Забыли пароль?</a></div>
+</div>
+
+<div id="index_login" class="page_block index_login">
+    <form method="post" name="login" id="index_login_form" action="https://login.vk.com/?act=login">
+        <input type="hidden" name="act" id="act" value="login">
+        <input type="hidden" name="role" value="al_frame"/>
+        <input type="hidden" name="expire" id="index_expire_input" value=""/>
+        <input type="hidden" name="_origin" value="https://vk.com"/>
+        <input type="hidden" name="ip_h" value="f1b6e3eda39f19ebd7"/>
+        <input type="hidden" name="lg_h" value="4f1c66b185a7ed3c44"/>
+        <input type="text" class="big_text" name="email" id="index_email" value="" placeholder="Телефон или email"/>
+        <input type="password" class="big_text" name="pass" id="index_pass" value="" placeholder="Пароль"
+               onkeyup="toggle('index_expire', !!this.value);toggle('index_forgot', !this.value)"/>
+        <button id="index_login_button" class="index_login_button flat_button button_big_text">Войти</button>
+        <div class="forgot">
+            <div class="checkbox" id="index_expire"
+                 onclick="checkbox(this);ge('index_expire_input').value=isChecked(this)?1:'';">Чужой компьютер
+            </div>
+            <a id="index_forgot" class="index_forgot" href="/restore" target="_top">Забыли пароль?</a>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>
