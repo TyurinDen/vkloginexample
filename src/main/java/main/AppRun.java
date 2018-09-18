@@ -32,7 +32,12 @@ public class AppRun {
     }
 
     private static void sendGet(String url) throws IOException {
-        HttpClientContext context = HttpClientContext.create();
+        HttpClientContext httpClientContext = HttpClientContext.create();
+        CookieStore cookieStore = httpClientContext.getCookieStore();
+        CloseableHttpResponse httpResponse;
+        List<Cookie> cookieList;
+        Header[] headers;
+
         //CloseableHttpClient httpClient = HttpClients.createDefault(); // каждая куки вызывает warning, что она имеет неправильный формат
         //HttpClient client = HttpClientBuilder.create().build(); // результат тот же, что и при вызове метода выше
         CloseableHttpClient httpClient = HttpClients.custom()
@@ -42,15 +47,12 @@ public class AppRun {
 
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("User-Agent", USER_AGENT);
-
-        CloseableHttpResponse httpResponse = httpClient.execute(httpGet, context);
-
-        CookieStore cookieStore = context.getCookieStore();
-        List<Cookie> cookieList = cookieStore.getCookies();
+        httpResponse = httpClient.execute(httpGet, httpClientContext);
+        cookieList = cookieStore.getCookies();
 
         System.out.println("GET Response Status:: " + httpResponse.getStatusLine().getStatusCode());
 
-        Header[] headers = httpResponse.getAllHeaders();
+        headers = httpResponse.getAllHeaders();
         for (Header header : headers) {
             System.out.println("Key [ " + header.getName() + "], Value[ " + header.getValue() + " ]");
         }
@@ -60,7 +62,7 @@ public class AppRun {
 
         cookieList.forEach(System.out::println);
 
-        //        int inByte; // проверить этот код, он может работать неправильно!!
+//        int inByte; // проверить этот код, он может работать неправильно!!
 //        while ((inByte = is.read()) != -1) {
 //            fos.write(inByte);
 //        }
