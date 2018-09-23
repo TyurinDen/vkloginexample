@@ -1,22 +1,18 @@
 package main;
 
-import org.apache.http.Header;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import services.HttpRequestKeeper;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Simplest program that tries to log into vk.com via http using Jsoup and Apache HttpClient
@@ -28,57 +24,38 @@ public class AppRun {
     private static final String USER_AGENT = "Mozilla/5.0";
 
     public static void main(String[] args) throws IOException {
-        sendGet(MAIN_URL);
+        File input = new File("src/main/resources/loginpageatall.html");
+        Document doc = Jsoup.parse(input, "windows-1251", "https://vk.com");
+        Element form = doc.getElementById("quick_login_form");
+        for (Element i : form.getElementsByTag("input")) {
+            System.out.println(i);
+
+        }
+
+//        System.out.println("1- " + form);
+//        for (Element e : doc.select("form#quick_login_form > *")) {
+//            System.out.println(e);
+//            if (!e.children().isEmpty()) {
+//                for (Element c : e.children()) {
+//                    System.out.println("child: " + c);
+//                }
+//            }
+//        }
+//        HttpRequestKeeper mainReq = new HttpRequestKeeper();
+//        Map<String, String> headers = new HashMap<>();
+//        headers.put("User-Agent", USER_AGENT);
+//        mainReq.sendGet(MAIN_URL, headers);
+//        System.out.println(mainReq.getStatusCode());
+//        System.out.println(mainReq.getStatusLine().getReasonPhrase());
+
     }
 
     private static void sendGet(String url) throws IOException {
-        HttpClientContext httpClientContext = HttpClientContext.create();
-        CookieStore cookieStore = httpClientContext.getCookieStore();
-        CloseableHttpResponse httpResponse;
-        List<Cookie> cookieList;
-        Header[] headers;
-
         //CloseableHttpClient httpClient = HttpClients.createDefault(); // каждая куки вызывает warning, что она имеет неправильный формат
         //HttpClient client = HttpClientBuilder.create().build(); // результат тот же, что и при вызове метода выше
         CloseableHttpClient httpClient = HttpClients.custom()
                 .setDefaultRequestConfig(RequestConfig.custom()
-                .setCookieSpec(CookieSpecs.STANDARD).build()) //The RFC 6265 compliant policy (interoprability profile).
+                        .setCookieSpec(CookieSpecs.STANDARD).build()) //The RFC 6265 compliant policy (interoprability profile).
                 .build();
-
-        HttpGet httpGet = new HttpGet(url);
-        httpGet.addHeader("User-Agent", USER_AGENT);
-        httpResponse = httpClient.execute(httpGet, httpClientContext);
-        cookieList = cookieStore.getCookies();
-
-        System.out.println("GET Response Status:: " + httpResponse.getStatusLine().getStatusCode());
-
-        headers = httpResponse.getAllHeaders();
-        for (Header header : headers) {
-            System.out.println("Key [ " + header.getName() + "], Value[ " + header.getValue() + " ]");
-        }
-
-        System.out.println("\nRead Specific Header Value");
-        System.out.println("Date Header:- " + httpResponse.getFirstHeader("Date").getValue());
-
-        cookieList.forEach(System.out::println);
-
-//        int inByte; // проверить этот код, он может работать неправильно!!
-//        while ((inByte = is.read()) != -1) {
-//            fos.write(inByte);
-//        }
-
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
-
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-
-        while ((inputLine = reader.readLine()) != null) {
-            response.append(inputLine);
-        }
-        reader.close();
-
-        System.out.println(response.toString());
-        httpClient.close();
     }
 }
