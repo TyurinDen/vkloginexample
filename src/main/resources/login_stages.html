@@ -1,0 +1,156 @@
+<!--запрос на vk.com -->
+GET https://vk.com/ HTTP/1.1
+Host: vk.com
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+
+<!--заголовки ответа -->
+HTTP/1.1 200 OK
+Server: Internet Information Services
+Date: Sun, 23 Sep 2018 15:38:29 GMT
+Content-Type: text/html; charset=windows-1251
+Content-Length: 29172
+Connection: keep-alive
+X-Powered-By: PHP/3.16760
+Set-Cookie: remixlang=0; expires=Sat, 14 Sep 2019 01:48:17 GMT; path=/; domain=.vk.com
+Set-Cookie: remixlhk=b0e5859541a3eb672f; expires=Thu, 03 Oct 2019 13:35:41 GMT; path=/; domain=.vk.com
+Set-Cookie: remixstid=0_a4ebb2ebb6b918adc5; expires=Sat, 14 Sep 2019 00:40:01 GMT; path=/; domain=.vk.com
+Set-Cookie: remixlhk=3f5fbabc66c22b2e1e; expires=Thu, 03 Oct 2019 00:36:32 GMT; path=/; domain=.vk.com
+Cache-control: no-store
+X-Frame-Options: deny
+Strict-Transport-Security: max-age=15768000
+X-Frontend: front504217
+Access-Control-Expose-Headers: X-Frontend
+<!--далее вебформа с полями-->
+<!--------------------------------------------------------------------------->
+
+<!--введен логин и пароль -->
+POST https://login.vk.com/?act=login HTTP/1.1
+Host: login.vk.com
+Connection: keep-alive
+Content-Length: 185
+Cache-Control: max-age=0
+Origin: https://vk.com
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://vk.com/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: remixlang=0; remixstid=0_a4ebb2ebb6b918adc5; remixlhk=3f5fbabc66c22b2e1e; remixflash=0.0.0; remixscreen_depth=24; remixdt=3600; remixgp=04f4f4658b2b2b092555a77515d26582; remixjsp=%7B%22id%22%3A%22jmf13afg.4gq%22%2C%22loc%22%3A%22https%3A//vk.com/%22%2C%22events%22%3A%5B%5B%22TTFCP%22%2C701%2Cnull%2C%224g%22%2C%2216760%22%5D%2C%5B%22domComplete%22%2C1321%2Cnull%2C%224g%22%2C%2216760%22%5D%2C%5B%22domContentLoadedEventEnd%22%2C715%2Cnull%2C%224g%22%2C%2216760%22%5D%2C%5B%22loadEventEnd%22%2C1334%2Cnull%2C%224g%22%2C%2216760%22%5D%2C%5B%22TTI%22%2C679%2Cnull%2C%224g%22%2C%2216760%22%5D%5D%7D
+
+act=login&role=al_frame&expire=&recaptcha=&captcha_sid=&captcha_key=&_origin=https%3A%2F%2Fvk.com&ip_h=f1b6e3eda39f19ebd7&lg_h=12750ab80215569f87&email=tyurinden%40ya.ru&pass=Hp1U43jHzt
+
+<!--ответ -->
+HTTP/1.1 302 Found
+Server: Internet Information Services
+Date: Sun, 23 Sep 2018 15:39:22 GMT
+Content-Type: text/html; charset=windows-1251
+Content-Length: 0
+Connection: keep-alive
+X-Powered-By: PHP/3.16760
+Cache-control: no-store
+P3P: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+Set-Cookie: h=1; expires=Tue, 01 Oct 2019 23:31:34 GMT; path=/; domain=login.vk.com; HttpOnly
+Set-Cookie: s=1; expires=Fri, 04 Oct 2019 07:26:30 GMT; path=/; domain=login.vk.com; secure; HttpOnly
+Set-Cookie: l=83191301; expires=Sun, 22 Sep 2019 12:53:52 GMT; path=/; domain=login.vk.com; secure; HttpOnly
+Set-Cookie: p=0a0ff3662036ea7a8c8ea72f63d8051efa5a78d1f275a28930cfa; expires=Sun, 22 Sep 2019 18:41:44 GMT; path=/; domain=login.vk.com; secure; HttpOnly
+Set-Cookie: remixjsp=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com
+Set-Cookie: remixq_c129828b14ae8a98df2118308d53ada3=d6e580d74a906a5918; path=/; domain=.vk.com; HttpOnly
+Location: https://vk.com/login.php?act=slogin&to=&s=1&__q_hash=c129828b14ae8a98df2118308d53ada3
+Strict-Transport-Security: max-age=15768000
+<!--------------------------------------------------------------------------->
+
+<!-- 3 запрос -->
+GET https://vk.com/login.php?act=slogin&to=&s=1&__q_hash=c129828b14ae8a98df2118308d53ada3 HTTP/1.1
+Host: vk.com
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://vk.com/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: remixlang=0; remixstid=0_a4ebb2ebb6b918adc5; remixlhk=3f5fbabc66c22b2e1e; remixflash=0.0.0; remixscreen_depth=24; remixdt=3600; remixgp=04f4f4658b2b2b092555a77515d26582; tmr_detect=0%7C1537717153681; remixq_c129828b14ae8a98df2118308d53ada3=d6e580d74a906a5918
+
+
+<!-- 3 ответ -->
+HTTP/1.1 200 OK
+Server: Internet Information Services
+Date: Sun, 23 Sep 2018 15:39:22 GMT
+Content-Type: text/html; charset=windows-1251
+Content-Length: 1414
+Connection: keep-alive
+X-Powered-By: PHP/3.16760
+Set-Cookie: remixq_c129828b14ae8a98df2118308d53ada3=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com
+Set-Cookie: remixq_c129828b14ae8a98df2118308d53ada3=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com
+Set-Cookie: remixnreg_sid=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com
+Set-Cookie: remixapi_sid=DELETED; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.vk.com
+Set-Cookie: remixsid=6e75496d15beb7aa7c7bf1b6c16f521c282cfbd39a536136ddbec; expires=Sun, 22 Sep 2019 13:35:01 GMT; path=/; domain=.vk.com; secure
+Set-Cookie: remixstid=955971014_c424ed09bafc82e89e; expires=Sat, 28 Sep 2019 09:34:04 GMT; path=/; domain=.vk.com
+Cache-control: no-store
+P3P: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+Strict-Transport-Security: max-age=15768000
+X-Frontend: front504217
+Access-Control-Expose-Headers: X-Frontend
+<!--------------------------------------------------------------------------->
+
+<!-- 4 запрос -->
+GET https://vk.com/ HTTP/1.1
+Host: vk.com
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://vk.com/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: remixlang=0; remixlhk=3f5fbabc66c22b2e1e; remixflash=0.0.0; remixscreen_depth=24; remixdt=3600; remixgp=04f4f4658b2b2b092555a77515d26582; tmr_detect=0%7C1537717153681; remixsid=6e75496d15beb7aa7c7bf1b6c16f521c282cfbd39a536136ddbec; remixstid=955971014_c424ed09bafc82e89e
+
+<!-- 4 ответ -->
+HTTP/1.1 302 Found
+Server: Internet Information Services
+Date: Sun, 23 Sep 2018 15:39:22 GMT
+Content-Type: text/html; charset=windows-1251
+Content-Length: 0
+Connection: keep-alive
+X-Powered-By: PHP/3.16760
+Location: /feed
+Strict-Transport-Security: max-age=15768000
+X-Frontend: front504217
+Access-Control-Expose-Headers: X-Frontend
+<!--------------------------------------------------------------------------->
+
+<!-- 5 запрос -->
+GET https://vk.com/feed HTTP/1.1
+Host: vk.com
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://vk.com/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: remixlang=0; remixlhk=3f5fbabc66c22b2e1e; remixflash=0.0.0; remixscreen_depth=24; remixdt=3600; remixgp=04f4f4658b2b2b092555a77515d26582; tmr_detect=0%7C1537717153681; remixsid=6e75496d15beb7aa7c7bf1b6c16f521c282cfbd39a536136ddbec; remixstid=955971014_c424ed09bafc82e89e
+
+<!-- 5 ответ -->
+HTTP/1.1 200 OK
+Server: Internet Information Services
+Date: Sun, 23 Sep 2018 15:39:23 GMT
+Content-Type: text/html; charset=windows-1251
+Content-Length: 201474
+Connection: keep-alive
+X-Powered-By: PHP/3.16760
+Cache-control: no-store
+X-Frame-Options: deny
+Strict-Transport-Security: max-age=15768000
+X-Frontend: front504220
+Access-Control-Expose-Headers: X-Frontend
+<!-- далее сама страница контакта -->
