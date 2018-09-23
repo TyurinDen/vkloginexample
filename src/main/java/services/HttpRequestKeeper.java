@@ -59,7 +59,7 @@ public class HttpRequestKeeper {
                 statusCode = httpResponse.getStatusLine().getStatusCode();
                 cookieStore = clientContext.getCookieStore();
                 cookies = cookieStore.getCookies();
-                page = formPage(httpResponse);
+                page = createPageFromResponse(httpResponse);
             } catch (IOException ioe) {
                 error = true;
                 System.err.println(ioe.getMessage());
@@ -87,7 +87,7 @@ public class HttpRequestKeeper {
                 statusCode = httpResponse.getStatusLine().getStatusCode();
                 cookieStore = clientContext.getCookieStore();
                 cookies = cookieStore.getCookies();
-                page = formPage(httpResponse);
+                page = createPageFromResponse(httpResponse);
                 parsePage(page);
             } catch (IOException ioe) {
                 error = true;
@@ -113,27 +113,14 @@ public class HttpRequestKeeper {
 
     public Elements getInputFieldsFromForm(String formId) {
         Element form = doc.getElementById(formId);
-        List<Element> inputs = new ArrayList<>();
-
-        for (Element e: form.getAllElements()) {
-            if (e.tagName().equals("input")) {
-                inputs.add(e);
-            } else {
-                if (!e.children().isEmpty()) {
-                    for (Element ce : e.children()) {
-                        // TODO: 23.09.2018 продумать, разбить на несколько методов!!!
-                    }
-                }
-            }
+        if (form != null) {
+            List<Element> inputs = new ArrayList<>(form.getElementsByTag("input"));
+            return new Elements(inputs);
         }
-        for (Element e : doc.select(String.format("form#%s > *", formId))) {
-
-        }
-        //Elements forms = doc.select(String.format("%s", formId));
         return null;
     }
 
-    private String formPage(CloseableHttpResponse httpResponse) {
+    private String createPageFromResponse(CloseableHttpResponse httpResponse) {
         String inputLine;
         StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(

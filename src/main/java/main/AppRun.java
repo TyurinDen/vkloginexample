@@ -26,11 +26,7 @@ public class AppRun {
     public static void main(String[] args) throws IOException {
         File input = new File("src/main/resources/loginpageatall.html");
         Document doc = Jsoup.parse(input, "windows-1251", "https://vk.com");
-        Element form = doc.getElementById("quick_login_form");
-        for (Element i : form.getElementsByTag("input")) {
-            System.out.println(i);
 
-        }
 
 //        System.out.println("1- " + form);
 //        for (Element e : doc.select("form#quick_login_form > *")) {
