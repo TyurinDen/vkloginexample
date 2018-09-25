@@ -19,11 +19,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class HttpRequestKeeper {
     private HttpClientContext clientContext;
@@ -32,7 +34,8 @@ public class HttpRequestKeeper {
     private Map<String, String> requestHeaders;
     private Header[] responseHeaders;
     private CloseableHttpResponse httpResponse = null;
-    private String page = null;
+    private String pageAsString = null;
+    private InputStream pageAsStream;
     private Document doc = null;
     private int statusCode;
     private StatusLine statusLine;
@@ -59,7 +62,8 @@ public class HttpRequestKeeper {
                 statusCode = httpResponse.getStatusLine().getStatusCode();
                 cookieStore = clientContext.getCookieStore();
                 cookies = cookieStore.getCookies();
-                page = createPageFromResponse(httpResponse);
+                //pageAsStream = httpResponse.getEntity().getContent();
+                pageAsString = getPageAsString(httpResponse);
             } catch (IOException ioe) {
                 error = true;
                 System.err.println(ioe.getMessage());
@@ -87,8 +91,8 @@ public class HttpRequestKeeper {
                 statusCode = httpResponse.getStatusLine().getStatusCode();
                 cookieStore = clientContext.getCookieStore();
                 cookies = cookieStore.getCookies();
-                page = createPageFromResponse(httpResponse);
-                parsePage(page);
+                pageAsString = getPageAsString(httpResponse);
+                parsePage(pageAsString);
             } catch (IOException ioe) {
                 error = true;
                 System.err.println(ioe.getMessage());
@@ -96,8 +100,8 @@ public class HttpRequestKeeper {
         }
     }
 
-    public String getPage() {
-        return page;
+    public String getPageAsString() {
+        return pageAsString;
     }
 
     private Document parsePage(String page) {
@@ -117,10 +121,10 @@ public class HttpRequestKeeper {
             List<Element> inputs = new ArrayList<>(form.getElementsByTag("input"));
             return new Elements(inputs);
         }
-        return null;
+        return new Elements();
     }
 
-    private String createPageFromResponse(CloseableHttpResponse httpResponse) {
+    private String getPageAsString(CloseableHttpResponse httpResponse) {
         String inputLine;
         StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(
@@ -130,9 +134,17 @@ public class HttpRequestKeeper {
             }
         } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
-            return null;
+            return "";
         }
         return builder.toString();
+    }
+
+    public void savePageToFile(String fileName, String page) {
+        try {
+            Files.write(Paths.get(fileName), page.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Document getDoc() {
@@ -164,7 +176,7 @@ public class HttpRequestKeeper {
     }
 
     public InputStream getPageAsStream() throws IOException {
-        return httpResponse.getEntity().getContent();
+        return pageAsStream;
     }
 
     public int getStatusCode() {

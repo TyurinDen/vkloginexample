@@ -4,12 +4,8 @@ import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import services.HttpRequestKeeper;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,8 +20,8 @@ public class AppRun {
     private static final String USER_AGENT = "Mozilla/5.0";
 
     public static void main(String[] args) throws IOException {
-        File input = new File("src/main/resources/loginpageatall.html");
-        Document doc = Jsoup.parse(input, "windows-1251", "https://vk.com");
+//        File input = new File("src/main/resources/loginpageatall.html");
+//        Document doc = Jsoup.parse(input, "windows-1251", "https://vk.com");
 
 
 //        System.out.println("1- " + form);
@@ -37,12 +33,13 @@ public class AppRun {
 //                }
 //            }
 //        }
-//        HttpRequestKeeper mainReq = new HttpRequestKeeper();
-//        Map<String, String> headers = new HashMap<>();
-//        headers.put("User-Agent", USER_AGENT);
-//        mainReq.sendGet(MAIN_URL, headers);
-//        System.out.println(mainReq.getStatusCode());
-//        System.out.println(mainReq.getStatusLine().getReasonPhrase());
+        HttpRequestKeeper mainReq = new HttpRequestKeeper();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("User-Agent", USER_AGENT);
+        mainReq.sendGet(MAIN_URL, headers);
+        System.out.println(mainReq.getStatusCode());
+        System.out.println(mainReq.getStatusLine().getReasonPhrase());
+        mainReq.savePageToFile("src/files/req.html", mainReq.getPageAsString());
 
     }
 
